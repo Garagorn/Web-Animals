@@ -33,5 +33,10 @@ class View{
         $this->content = "<p>  Animal inconnu est un animal de l'espèce inconnue </p>";
 	}
 
+    public function prepareAccueilPage(): void{
+		$this->title = "Page d'accueil";
+        $this->content = "<p>  Vous êtes sur la page d'accueil </p>";
+	}
+
 }
 ?>

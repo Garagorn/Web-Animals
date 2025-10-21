@@ -22,5 +22,9 @@ class Controller{
         }
     }
 
+    public function afficheDefaut():void{
+        $this->view->prepareAccueilPage();
+    }
+
 }
 ?>

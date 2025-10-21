@@ -1,6 +1,7 @@
 <?php
-set_include_path("View/View.php");
+set_include_path("./src");
 require_once("View/View.php");
+require_once("control/Controller.php");
 
 class Router{
 
@@ -10,7 +11,8 @@ class Router{
 
 		$view = new View();
 
-		$view->prepareAnimalPage("Médor","chien");
+		$controller = new Controller($view);
+		$controller->showInformation("denver");
 		$view->render();
 	}
 

@@ -3,11 +3,6 @@ class View{
     public $title;
     public $content;
 
-    public function ___construct($title, $content) {
-        $this->title = $title;
-        $this->content = $content;
-    }
-
     public function render(): void{
         echo"
             <!DOCTYPE html> 
@@ -28,13 +23,14 @@ class View{
         $this->content = "<p> Contenu de la page </p>";
     }
 
-    public function prepareAnimalPage($name,$species){
+    public function prepareAnimalPage($name,$species):void{
         $this->title = "Page sur {$name}";
         $this->content = "<p> {$name} est un animal de l'espèce {$species} </p>";
     }
 
-	public function main(){
-		
+	public function prepareUnknownAnimalPage(): void{
+		$this->title = "Animal inconnu";
+        $this->content = "<p>  Animal inconnu est un animal de l'espèce inconnue </p>";
 	}
 
 }

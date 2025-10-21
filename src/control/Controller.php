@@ -30,5 +30,9 @@ class Controller{
         $this->view->prepareAccueilPage();
     }
 
+    public function showList():void{
+        $this->view->prepareListPage($this->animalsTab);
+    }
+
 }
 ?>

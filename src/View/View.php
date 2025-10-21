@@ -3,6 +3,13 @@ class View{
     public $title;
     public $content;
 
+    private $router;
+
+    public function __construct(Router $routeur){
+        $this->router = $routeur;
+
+    }
+
     public function render(): void{
         echo"
             <!DOCTYPE html> 
@@ -36,6 +43,17 @@ class View{
     public function prepareAccueilPage(): void{
 		$this->title = "Page d'accueil";
         $this->content = "<p>  Vous êtes sur la page d'accueil </p>";
+	}
+
+    public function prepareListPage($listeAnimaux): void{
+        $this->title="Liste  des animaux";
+        $this->content= "<ul>";
+        foreach($listeAnimaux as $cle=>$animal){
+            $nom = htmlspecialchars(($animal->getNom()));
+            $url = $this->router->getAnimalURL($cle);
+            $this->content .= "<li><a href='{$url}'>{$nom}</a></li>";
+        }
+        $this->content.= "</ul>";
 	}
 
 }

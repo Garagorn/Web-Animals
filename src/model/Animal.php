@@ -22,6 +22,9 @@ class Animal{
 		return $this->espece;
 	}
 
+  public function __toString() {
+    return "{$this->nom} est un {$this->espece} de {$this->age} ans.";
+  }
 }
 
 

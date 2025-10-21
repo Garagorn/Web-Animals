@@ -6,9 +6,13 @@ require_once("control/Controller.php");
 
 class Router{
 	
+	public function getAnimalURL(string $id):string{
+		return "site.php?id=" . urlencode($id);
+	}
+
 	public function main(){
 
-		$view = new View();
+		$view = new View($this);
 		$controller = new Controller($view);
 		if(isset($_GET["id"])){
 			$id = ($_GET["id"]);
@@ -16,6 +20,11 @@ class Router{
 		}
 		else{
 			$controller->afficheDefaut();
+		}
+		if(isset($_GET["action"])){
+			if(htmlspecialchars($_GET["action"])==="liste"){
+				$controller->showList();
+			}
 		}
 		$view->render();
 	}

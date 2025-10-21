@@ -23,14 +23,14 @@ class View{
         $this->content = "<p> Contenu de la page </p>";
     }
 
-    public function prepareAnimalPage($name,$species):void{
-        $this->title = "Page sur {$name}";
-        $this->content = "<p> {$name} est un animal de l'espèce {$species} </p>";
+    public function prepareAnimalPage(Animal $animal):void{
+        $this->title = "Page sur {$animal->getNom()}";
+        $this->content = "<p> {$animal->getNom()} est un {$animal->getEspece()} de {$animal->getAge()} ans. </p>";
     }
 
 	public function prepareUnknownAnimalPage(): void{
 		$this->title = "Animal inconnu";
-        $this->content = "<p>  Animal inconnu est un animal de l'espèce inconnue </p>";
+        $this->content = "<p>  Animal inconnu est d'une espèce inconnue </p>";
 	}
 
     public function prepareAccueilPage(): void{

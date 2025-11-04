@@ -10,7 +10,6 @@ class Router{
 	}
 
 	public function main(AnimalStorage $storage){
-
 		$view = new View($this);
 
 		$controller = new Controller($view,$storage);
@@ -28,6 +27,21 @@ class Router{
 		}
 		$view->render();
 	}
+
+	/* URL de la page d'accueil */
+    public function homePage() {
+        return "site.php";
+    }
+
+	/* URL de la page d'animaux d'identifiant $id */
+    public function listPage($id) {
+        return "site.php?id=$id";
+    }
+
+	/* URL de la page avec tout les animaix */
+    public function allAnimauxPage() {
+        return "site.php?action=liste";
+    }
 
 	
 }

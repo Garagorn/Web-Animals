@@ -4,25 +4,10 @@ class View{
     public $content;
 
     private $router;
+    private array $menu;
 
     public function __construct(Router $routeur){
         $this->router = $routeur;
-
-    }
-
-    public function render(): void{
-        echo"
-            <!DOCTYPE html> 
-            <html lang='fr'>
-            <head>
-            <meta charset = 'UTF-8'>
-            <title> {$this->title} </title>
-            </head>
-            <body>
-            <h1> {$this->title}</h1>
-                {$this->content}
-            </body>
-            </html>";
     }
 
     public function prepareTestPage(): void{
@@ -55,6 +40,60 @@ class View{
         }
         $this->content.= "</ul>";
 	}
+
+    protected function getMenu() {
+        return array(
+            "Accueil" => $this->router->homePage(),
+            "Liste animaux" => $this->router->allAnimauxPage(),
+        );
+    }
+
+///Debug 
+
+    public function prepareDebugPage($variable) {
+        $this->title = 'Debug';
+        $this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
+    }
+
+///Rendu de la page
+
+    public function render(): void{
+        if ($this->title === null || $this->content === null) {
+            $this->prepareUnexpectedErrorPage();
+        }
+        ?>
+        <!DOCTYPE html>
+        <html lang="fr">
+        <head>
+            <title><?php echo $this->title; ?></title>
+            <meta charset="UTF-8" />
+            <link rel="stylesheet" href="skin/screen.css" />
+            <style>
+        <?php echo $this->style; ?>
+            </style>
+        </head>
+        <body>
+            <nav class="menu">
+                <ul>
+        <?php
+        /* Construit le menu à partir d'un tableau associatif texte=>lien. */
+        foreach ($this->getMenu() as $text => $link) {
+            echo "<li><a href=\"$link\">$text</a></li>";
+        }
+        ?>
+                </ul>
+            </nav>
+            <main>
+                <h1><?php echo $this->title; ?></h1>
+        <?php
+        echo $this->content;
+        ?>
+            </main>
+        </body>
+        </html>
+        <?php /* fin de l'affichage de la page et fin de la méthode render() */
+
+    }
 
 }
 ?>

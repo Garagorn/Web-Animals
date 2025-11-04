@@ -25,5 +25,17 @@ class AnimalStorageStub implements AnimalStorage{
     public function readAll():array{
         return $this->animalsTab;
     }
+
+    public function create(Animal $a): Int{
+        throw new ErrorException($a);
+    }
+
+    public function delete($id): Boolean{
+        throw new ErrorException($id);
+    }
+
+    public function update($id, Animal $a): Boolean{
+        throw new ErrorException($id,$a);
+    }
 }
 ?>

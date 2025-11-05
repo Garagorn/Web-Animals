@@ -44,10 +44,43 @@ class View{
     protected function getMenu() {
         return array(
             "Accueil" => $this->router->homePage(),
-            "Liste animaux" => $this->router->allAnimauxPage(),
+            "Liste animaux" => $this->router->allAnimalsPage(),
+            "Créer un animal" => $this->router->getAnimalCreationURL(),
         );
     }
 
+	public function prepareAnimalCreationPage(){
+		$this->title ="Créer un nouvel animal";
+		$saveURL = htmlspecialchars($this->router->getAnimalSaveURL());
+		$this->content = "
+		<form method='POST' action={$saveURL}>
+			<div>
+				<label for='nom'>Nom :</label>
+				<input type='text' id='nom' name='nom' required />
+			</div>
+			
+			<div>
+				<label for='espece'>Espèce :</label>
+				<input type='text' id='espece' name='espece' required />
+			</div>
+			
+			<div>
+				<label for='age'>Âge :</label>
+				<input type='number' id='age' name='age' required />
+			</div>
+			
+			<div>
+				<button type='submit'>Créer l'animal</button>
+			</div>
+		</form>
+		";
+    }
+
+    private function prepareUnexpectedErrorPage(): void {
+        $this->title = 'Erreur';
+        $this->content = '<p>Une erreur inattendue s\'est produite.</p>';
+    }
+    
 ///Debug 
 
     public function prepareDebugPage($variable) {
@@ -76,7 +109,7 @@ class View{
             <nav class="menu">
                 <ul>
         <?php
-        /* Construit le menu à partir d'un tableau associatif texte=>lien. */
+        /* Construit le menu Ã  partir d'un tableau associatif texte=>lien. */
         foreach ($this->getMenu() as $text => $link) {
             echo "<li><a href=\"$link\">$text</a></li>";
         }
@@ -91,7 +124,7 @@ class View{
             </main>
         </body>
         </html>
-        <?php /* fin de l'affichage de la page et fin de la méthode render() */
+        <?php /* fin de l'affichage de la page et fin de la mÃ©thode render() */
 
     }
 

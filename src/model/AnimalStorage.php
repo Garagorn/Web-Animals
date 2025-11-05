@@ -7,7 +7,7 @@ Interface AnimalStorage{
 
     public function readAll():array;
 
-    public function create(Animal $a): Int;
+    public function create(Animal $a): String;
 
     public function delete($id): Boolean;
 

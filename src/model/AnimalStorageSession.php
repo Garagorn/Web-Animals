@@ -85,7 +85,7 @@ class AnimalStorageSession implements AnimalStorage {
 	}
 
 	/** Implémentation de la méthode de AnimalStorage */
-	public function create(Animal $a) : Int{
+	public function create(Animal $a) : String{
 		$id = self::generate_id($this->db);
 		$this->db[$id] = $a;
 		return $id;

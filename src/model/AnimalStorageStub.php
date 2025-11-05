@@ -26,7 +26,7 @@ class AnimalStorageStub implements AnimalStorage{
         return $this->animalsTab;
     }
 
-    public function create(Animal $a): Int{
+    public function create(Animal $a): String{
         throw new ErrorException($a);
     }
 

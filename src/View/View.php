@@ -17,7 +17,7 @@ class View{
 
     public function prepareAnimalPage(Animal $animal):void{
         $this->title = "Page sur {$animal->getNom()}";
-        $this->content = "<p> {$animal->getNom()} est un {$animal->getEspece()} de {$animal->getAge()} ans. </p>";
+        $this->content = "<p>" . htmlspecialchars($animal->getNom()) ." est un " . htmlspecialchars($animal->getEspece())." de " . htmlspecialchars($animal->getAge()) ." ans.</p>";
     }
 
 	public function prepareUnknownAnimalPage(): void{
@@ -49,24 +49,34 @@ class View{
         );
     }
 
-	public function prepareAnimalCreationPage(){
+	public function prepareAnimalCreationPage(array $data, ?string $error){
 		$this->title ="Créer un nouvel animal";
 		$saveURL = htmlspecialchars($this->router->getAnimalSaveURL());
+
+        $nom = htmlspecialchars($data['nom']??'');
+        $espece = htmlspecialchars($data['espece']??'');
+        $age = htmlspecialchars($data['age']??'');
+
+        $errorA='';
+        if($error != null){
+            $errorA=$error;
+        }
 		$this->content = "
+        {$errorA}
 		<form method='POST' action={$saveURL}>
 			<div>
 				<label for='nom'>Nom :</label>
-				<input type='text' id='nom' name='nom' required />
+				<input type='text' id='nom' name='nom' value='{$nom}' />
 			</div>
 			
 			<div>
 				<label for='espece'>Espèce :</label>
-				<input type='text' id='espece' name='espece' required />
+				<input type='text' id='espece' name='espece' value='{$espece}' />
 			</div>
 			
 			<div>
 				<label for='age'>Âge :</label>
-				<input type='number' id='age' name='age' required />
+				<input type='number' id='age' name='age' value='{$age}' />
 			</div>
 			
 			<div>

@@ -34,29 +34,27 @@ class Controller{
 
     
     public function createNewAnimal(): void{
-        $this->view->prepareAnimalCreationPage();
+        $this->view->prepareAnimalCreationPage([],null);
     }
 
-    public function saveNewAnimal(array $data){
-        if (!isset($_POST['nom']) || !isset($_POST['espece']) || !isset($_POST['age'])) {
-            $this->view->prepareErrorPage("Données manquantes pour créer l'animal.");
+    public function saveNewAnimal(array $data): void{
+        $nom = trim($_POST['nom']??'');
+        $espece = trim($_POST['espece']??'');
+        $age = $_POST['age']??'';
+        $error= null;
+
+        if($nom ==='' || $espece === '' ){
+            $error = "Le nom et  l'espèce ne peuvent pas etre vides";
+        }
+        elseif(!is_numeric($age) || $age < 0){
+            $error = "L'âge doit être un nombre positif.";
+        }
+
+        if($error !=null){
+            $this->view->prepareAnimalCreationPage($data,$error);
             return;
         }
 
-        $nom = trim($_POST['nom']);
-        $espece = trim($_POST['espece']);
-        $age = $_POST['age'];
-        
-        if (empty($nom) || empty($espece)) {
-            $this->view->prepareErrorPage("Le nom et l'espèce ne peuvent pas être vides.");
-            return;
-        }
-        
-        if (!is_numeric($age) ) {
-            $this->view->prepareErrorPage("L'âge doit être un nombre.");
-            return;
-        }
-        
         $animal = new Animal($nom, (int)$age, $espece);
         $id = $this->storage->create($animal);
         $this->view->prepareAnimalPage($animal);

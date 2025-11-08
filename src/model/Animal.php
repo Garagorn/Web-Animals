@@ -4,7 +4,7 @@ class Animal{
     private int $age;
     private String $espece;
 
-    public function __construct(String $nom, Int $age, String $espece){
+    public function __construct(String $nom, String $espece, Int $age){
         $this->nom = $nom;
         $this->age = $age;
         $this->espece = $espece;

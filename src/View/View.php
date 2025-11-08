@@ -49,13 +49,16 @@ class View{
         );
     }
 
-	public function prepareAnimalCreationPage(array $data, ?string $error){
+	public function prepareAnimalCreationPage(AnimalBuilder $build){
 		$this->title ="Créer un nouvel animal";
 		$saveURL = htmlspecialchars($this->router->getAnimalSaveURL());
 
-        $nom = htmlspecialchars($data['nom']??'');
-        $espece = htmlspecialchars($data['espece']??'');
-        $age = htmlspecialchars($data['age']??'');
+		$data = $build->getData();
+    	$error = $build->getError();
+
+        $nom = htmlspecialchars($data[AnimalBuilder::NAME_REF]??'');
+        $espece = htmlspecialchars($data[AnimalBuilder::SPECIES_REF]??'');
+        $age = htmlspecialchars($data[AnimalBuilder::AGE_REF]??'');
 
         $errorA='';
         if($error != null){
@@ -66,17 +69,17 @@ class View{
 		<form method='POST' action={$saveURL}>
 			<div>
 				<label for='nom'>Nom :</label>
-				<input type='text' id='nom' name='nom' value='{$nom}' />
+				<input type='text' id='nom' name='".AnimalBuilder::NAME_REF."' value='{$nom}' />
 			</div>
 			
 			<div>
 				<label for='espece'>Espèce :</label>
-				<input type='text' id='espece' name='espece' value='{$espece}' />
+				<input type='text' id='espece' name='".AnimalBuilder::SPECIES_REF."' value='{$espece}' />
 			</div>
 			
 			<div>
 				<label for='age'>Âge :</label>
-				<input type='number' id='age' name='age' value='{$age}' />
+				<input type='number' id='age' name='".AnimalBuilder::AGE_REF."' value='{$age}' />
 			</div>
 			
 			<div>

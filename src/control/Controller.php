@@ -2,6 +2,7 @@
 set_include_path("./src");
 require_once("model/Animal.php");
 require_once("model/AnimalStorage.php");
+require_once("model/AnimalBuilder.php");
 
 class Controller{
     private $view;
@@ -34,10 +35,26 @@ class Controller{
 
     
     public function createNewAnimal(): void{
-        $this->view->prepareAnimalCreationPage([],null);
+		$build = new AnimalBuilder([]);
+        $this->view->prepareAnimalCreationPage($build);
     }
 
+	
+	public function saveNewAnimal(array $data){
+		$build = new AnimalBuilder($data);
+
+		if (!$build->isValid()) {
+        	$this->view->prepareAnimalCreationPage($build);
+        return null;
+    }
+
+    $animal = $build->createAnimal();
+    $id = $this->storage->create($animal);
+    $this->view->prepareAnimalPage($animal);
+}
+/*
     public function saveNewAnimal(array $data): void{
+    	$an = new AnimalBuilder($data);
         $nom = trim($_POST['nom']??'');
         $espece = trim($_POST['espece']??'');
         $age = $_POST['age']??'';
@@ -58,6 +75,6 @@ class Controller{
         $animal = new Animal($nom, (int)$age, $espece);
         $id = $this->storage->create($animal);
         $this->view->prepareAnimalPage($animal);
-    }
+    }*/
 }
 ?>

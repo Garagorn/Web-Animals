@@ -94,6 +94,12 @@ class View{
         $this->content = '<p>Une erreur inattendue s\'est produite.</p>';
     }
     
+    public function displayAnimalCreationSuccess(string $id): void {
+    	$url = $this->router->getAnimalURL($id);
+    	$this->router->POSTredirect($url, "Création réussie !");
+	}
+
+    
 ///Debug 
 
     public function prepareDebugPage($variable) {
@@ -138,8 +144,7 @@ class View{
         </body>
         </html>
         <?php /* fin de l'affichage de la page et fin de la mÃ©thode render() */
-
-    }
+	}
 
 }
 ?>

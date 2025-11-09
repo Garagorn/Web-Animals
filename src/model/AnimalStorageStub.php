@@ -8,9 +8,9 @@ class AnimalStorageStub implements AnimalStorage{
 
     public function __construct(){
         $this->animalsTab=[
-            "medor"=> new Animal("Médor",2,"chien"),
-            "felix"=> new Animal("Félix",4,"chat"),
-            "denver"=> new Animal("Denver",2000,"dinosaure")
+            "medor"=> new Animal("Médor","chien",2),
+            "felix"=> new Animal("Félix","chat",4),
+            "denver"=> new Animal("Denver","dinosaure",4000)
         ];
     }
 

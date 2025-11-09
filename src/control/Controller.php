@@ -50,7 +50,7 @@ class Controller{
 
     $animal = $build->createAnimal();
     $id = $this->storage->create($animal);
-    $this->view->prepareAnimalPage($animal);
+    $this->view->displayAnimalCreationSuccess($id);
 }
 /*
     public function saveNewAnimal(array $data): void{

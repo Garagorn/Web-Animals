@@ -10,7 +10,9 @@ class Router{
 	}
 
 	public function main(AnimalStorage $storage){
-		$view = new View($this);
+		$feedback = $_SESSION['feedback'] ?? null;
+		unset($_SESSION['feedback']);
+		$view = new View($this,$feedback);
 
 		$controller = new Controller($view,$storage);
 
@@ -74,8 +76,9 @@ class Router{
 	}
 	
 	public function POSTredirect(string $url,string $feedback){
+		$_SESSION['feedback'] = $feedback;
 		header("Location: " . $url, true, 303);
-    	exit();
+		exit();
 	}
 }
 ?>

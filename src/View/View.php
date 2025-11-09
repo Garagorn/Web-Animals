@@ -5,9 +5,11 @@ class View{
 
     private $router;
     private array $menu;
+    private ?string $feedback;
 
-    public function __construct(Router $routeur){
+    public function __construct(Router $routeur,?string $feedback=null){
         $this->router = $routeur;
+        $this->feedback =$feedback;
     }
 
     public function prepareTestPage(): void{
@@ -96,7 +98,7 @@ class View{
     
     public function displayAnimalCreationSuccess(string $id): void {
     	$url = $this->router->getAnimalURL($id);
-    	$this->router->POSTredirect($url, "Création réussie !");
+    	$this->router->POSTredirect($this->router->getAnimalURL($id), "Animal creer avec succès !");
 	}
 
     
@@ -136,6 +138,11 @@ class View{
                 </ul>
             </nav>
             <main>
+		        <?php if (!empty($this->feedback)) : ?>
+					<div class="feedback">
+						<?php echo htmlspecialchars($this->feedback); ?>
+					</div>
+				<?php endif; ?>
                 <h1><?php echo $this->title; ?></h1>
         <?php
         echo $this->content;

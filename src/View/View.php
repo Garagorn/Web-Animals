@@ -130,7 +130,7 @@ class View{
             <nav class="menu">
                 <ul>
         <?php
-        /* Construit le menu Ã  partir d'un tableau associatif texte=>lien. */
+        /* Construit le menu à  partir d'un tableau associatif texte=>lien. */
         foreach ($this->getMenu() as $text => $link) {
             echo "<li><a href=\"$link\">$text</a></li>";
         }

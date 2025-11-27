@@ -37,6 +37,38 @@ class Router{
 				case "sauverNouveau":
 					$controller->saveNewAnimal($_POST);
 					break;
+				/*
+				case "supprimer":
+				if ($colorId === null) {
+					$view->makeUnknownActionPage();
+				} else {
+					$ctl->deleteColor($colorId);
+				}
+				break;
+				case "confirmerSuppression":
+					if ($colorId === null) {
+						$view->makeUnknownActionPage();
+					} else {
+						$ctl->confirmColorDeletion($colorId);
+					}
+					break;
+
+				case "modifier":
+					if ($colorId === null) {
+						$view->makeUnknownActionPage();
+					} else {
+						$ctl->modifyColor($colorId);
+					}
+					break;
+
+				case "sauverModifs":
+					if ($colorId === null) {
+						$view->makeUnknownActionPage();
+					} else {
+						$ctl->saveColorModifications($colorId, $_POST);
+					}
+					break;
+				*/
 				default:
 					$controller->afficheDefaut();
 			}

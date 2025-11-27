@@ -1,0 +1,81 @@
+html {
+	overflow-y: scroll;
+}
+
+body {
+	max-width: 60em;
+	margin: auto;
+}
+
+figure {
+	float: right;
+	text-align: center;
+	box-shadow: 0 0 1px 1px black;
+	padding: .5em;
+	max-width: 300px;
+}
+
+figure .sample {
+	height: 300px;
+	margin: .5em;
+}
+
+.menu ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: space-around;
+}
+
+
+.gallery {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.gallery a {
+	display: flex;
+	max-width: 20em;
+	border: 1px solid black;
+	text-decoration: none;
+	color: inherit;
+	padding: .5em;
+	align-items: center;
+	margin: .2em;
+}
+
+.gallery a:hover {
+	box-shadow: inset 0px 0px 1px 1px grey;
+}
+
+.gallery h3 {
+	margin: .5em;
+}
+
+.gallery .sample {
+	height: 2em;
+	width: 4em;
+}
+
+input::invalid {
+	border: 1px solid red;
+}
+
+label .error {
+	color: red;
+	font-weight: bold;
+}
+
+.feedback {
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	background: crimson;
+	border-radius: 1em;
+	margin: 1em auto;
+	max-width: 90%;
+	padding: .5em;
+}
+

@@ -48,9 +48,16 @@ class AnimalStorageMySQL implements AnimalStorage{
     	return $animals;
 	}
 
-    public function create(Animal $a): String {
-        throw new Exception("not yet implemented");
-    }
+    public function create(Animal $a): string {
+		$requete = "INSERT INTO Animals (nom, espece, age) VALUES (:nom, :espece, :age)";
+		$stmt = $connection->prepare($requete);
+		$stmt->execute([
+		    ':nom'    => $a->getNom(),
+		    ':espece' => $a->getEspece(),
+		    ':age'    => $a->getAge()
+		]);
+		return $this->pdo->lastInsertId();
+	}
 
     public function delete($id): Boolean {
         throw new Exception("not yet implemented");
@@ -61,28 +68,13 @@ class AnimalStorageMySQL implements AnimalStorage{
     }
 }
 /*
-public function enregistrer(): bool{
-    	$connection= connecter();
-    	if($connection==null){
-    		return false;
-    	}
-    	else{
-            $requete="INSERT INTO Animals (nom,espece,age) VALUES ('$this->age','$this->espece','$this->age')";
-            $connection->query($requete);
-            if($connection->query($requete)){
-                $this->idA= $connection->lastInsertId();
-            }
-            return true;
-    	}
-    }
-    
-    public function modifier(string $nouveau_titre,string $nouveau_groupe,string $nouvel_album): bool{
+public function modifier(string $nouveau_nom,string $nouvelle_espece,int $nouvel_age): bool{
     	$connection= connecter();
     	if($connection==null){
     		return false;
     	}
 	else{
-        $requete = "UPDATE Musique  SET titre ='$nouveau_titre',groupe ='$nouveau_groupe',album ='$nouvel_album' WHERE idM =$this->idM";
+        $requete = "UPDATE Animals  SET nom ='$nouveau_nom',espece ='$nouvelle_espece',album ='$nouvel_age' WHERE idA =$this->idA";
         $connection->query($requete);
 	}
 	return true;
@@ -94,7 +86,7 @@ public function enregistrer(): bool{
     		return false;
     	}
 	else{
-        $requete="DELETE FROM Musique WHERE idM='$this->idM'";
+        $requete="DELETE FROM Animals WHERE idA='$this->idA'";
         $connection->query($requete);
 	}
 	return true;

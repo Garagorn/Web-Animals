@@ -14,6 +14,10 @@ class Controller{
         $this->storage = $storage;
     }
 
+	public function afficheDefaut():void{
+        $this->view->prepareAccueilPage();
+    }
+
     public function showInformation(string $animalName):void{
         $animal = $this->storage->read($animalName);
         if($animal !=null){
@@ -24,16 +28,11 @@ class Controller{
         }
     }
 
-    public function afficheDefaut():void{
-        $this->view->prepareAccueilPage();
-    }
-
     public function showList():void{
-        $listeAniimaux = $this->storage->readAll();
-        $this->view->prepareListPage($listeAniimaux);
+        $listeAnimaux = $this->storage->readAll();
+        $this->view->prepareListPage($listeAnimaux);
     }
 
-    
     public function createNewAnimal(): void{
 		$build = new AnimalBuilder([]);
         $this->view->prepareAnimalCreationPage($build);
@@ -47,34 +46,17 @@ class Controller{
         	$this->view->prepareAnimalCreationPage($build);
         return null;
     }
-
-    $animal = $build->createAnimal();
-    $id = $this->storage->create($animal);
-    $this->view->displayAnimalCreationSuccess($id);
-}
-/*
-    public function saveNewAnimal(array $data): void{
-    	$an = new AnimalBuilder($data);
-        $nom = trim($_POST['nom']??'');
-        $espece = trim($_POST['espece']??'');
-        $age = $_POST['age']??'';
-        $error= null;
-
-        if($nom ==='' || $espece === '' ){
-            $error = "Le nom et  l'espèce ne peuvent pas etre vides";
-        }
-        elseif(!is_numeric($age) || $age < 0){
-            $error = "L'âge doit être un nombre positif.";
-        }
-
-        if($error !=null){
-            $this->view->prepareAnimalCreationPage($data,$error);
-            return;
-        }
-
-        $animal = new Animal($nom, (int)$age, $espece);
-        $id = $this->storage->create($animal);
-        $this->view->prepareAnimalPage($animal);
-    }*/
+		$animal = $build->createAnimal();
+		$id = $this->storage->create($animal);
+		$this->view->displayAnimalCreationSuccess($id);
+	}
+    
+    //deleteAnimal($id)
+    
+    //confirmAnimalDeletion($id)
+    
+    //modifyAimal($id)
+    
+    //saveAnimalModifications($id, array $data)
 }
 ?>

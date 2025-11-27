@@ -28,6 +28,13 @@ class Router{
 			$action = $_GET["action"];
 			
 			switch($action){
+				case "voir":
+					if ($id === null) {
+						$view->prepareUnknownActionPage();
+					} else {
+						$ctl->colorPage($id);
+					}
+					break;
 				case "liste":
 					$controller->showList();
 					break;
@@ -37,40 +44,45 @@ class Router{
 				case "sauverNouveau":
 					$controller->saveNewAnimal($_POST);
 					break;
-				/*
+				
 				case "supprimer":
-				if ($colorId === null) {
-					$view->makeUnknownActionPage();
+				if ($id === null) {
+					$view->prepareUnknownActionPage();
 				} else {
-					$ctl->deleteColor($colorId);
+					$controller->deleteAnimal($id);
 				}
 				break;
 				case "confirmerSuppression":
-					if ($colorId === null) {
-						$view->makeUnknownActionPage();
+					if ($id === null) {
+						$view->prepareUnknownActionPage();
 					} else {
-						$ctl->confirmColorDeletion($colorId);
+						$controller->confirmAnimalDeletion($id);
 					}
 					break;
 
 				case "modifier":
-					if ($colorId === null) {
-						$view->makeUnknownActionPage();
+					if ($id === null) {
+						$view->prepareUnknownActionPage();
 					} else {
-						$ctl->modifyColor($colorId);
+						$controller->modifyAnimal($id);
 					}
 					break;
 
 				case "sauverModifs":
-					if ($colorId === null) {
-						$view->makeUnknownActionPage();
+					if ($id === null) {
+						$view->prepareUnknownActionPage();
 					} else {
-						$ctl->saveColorModifications($colorId, $_POST);
+						$controller->saveAnimalModifications($id, $_POST);
 					}
 					break;
-				*/
+				case "accueil":
+					$controller->homePage();
+					break;
+				
 				default:
-					$controller->afficheDefaut();
+					/* L'internaute a demandé une action non prévue. */
+					$view->prepareUnknownActionPage();
+					break;
 			}
 		}
 		
@@ -105,6 +117,29 @@ class Router{
 	
 	public function getAnimalSaveURL(){
 		return "site.php?action=sauverNouveau";
+	}
+	
+	/* URL de la page d'édition d'une couleur existante */
+	public function animalModifPage($id) {
+		return "site.php?action=modifier";
+	}
+	
+	/* URL d'enregistrement des modifications sur un
+	 * animal (champ 'action' du formulaire) */
+	public function updateModifiedAnimal($id) {
+		return "site.php?action=sauverModifs";
+	}
+
+	/* URL de la page demandant la confirmation
+	 * de la suppression d'un animal */
+	public function animalDeletionPage($id) {
+		return "site.php?action=supprimer";
+	}
+
+	/* URL de suppression effective d'un animal
+	 * (champ 'action' du formulaire) */
+	public function confirmAnimalDeletion($id) {
+		return "site.php?action=confirmerSuppression";
 	}
 	
 	public function POSTredirect(string $url,string $feedback){

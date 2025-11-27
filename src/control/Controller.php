@@ -34,7 +34,7 @@ class Controller{
     }
 
     public function createNewAnimal(): void{
-		$build = new AnimalBuilder([]);
+	$build = new AnimalBuilder([]);
         $this->view->prepareAnimalCreationPage($build);
     }
 

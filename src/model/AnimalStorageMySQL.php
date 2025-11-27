@@ -10,9 +10,12 @@ require_once __DIR__ . "/AnimalStorage.php";
 class AnimalStorageMySQL implements AnimalStorage{
 	private PDO $pdo;
 	
-	public function __construct(PDO $pdo) {
-            $this->pdo = $pdo;
-        }
+	public function __construct(?PDO $pdo = null) {
+	    if ($pdo !== null) {
+			$this->pdo = $pdo;
+		return;
+    	}
+    }
 
     public function read(string $id): ?Animal {
 		$requete = "SELECT idA, nom, espece, age FROM Animals WHERE idA = :id";

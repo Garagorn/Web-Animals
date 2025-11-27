@@ -45,7 +45,7 @@ class View{
         }
 		$this->content = "
         {$errorA}
-		<form method='POST' action={$saveURL}>
+		<form method='POST' action='$saveURL'>
 			<div>
 				<label for='nom'>Nom :</label>
 				<input type='text' id='nom' name='".AnimalBuilder::NAME_REF."' value='{$nom}' />
@@ -67,17 +67,17 @@ class View{
 		</form>
 		";
     }
-
+/*
 	public function prepareAnimalDeletionPage($id, Animal $a) {
 		$aname = self::htmlesc($a->getName());
 
 		$this->title = "Suppression de la couleur $aname";
 		$this->content = "<p>L'animal « {$aname} » va être supprimée.</p>\n";
-		$this->content .= '<form action="'.$this->router->confirmColorDeletion($id).'" method="POST">'."\n";
+		$this->content .= '<form action="'.$this->router->confirmAnimalDeletion($id).'" method="POST">'."\n";
 		$this->content .= "<button>Confirmer</button>\n</form>\n";
 	}
 	
-	public function prepareColorModifPage($id, AnimalBuilder $builder) {
+	public function prepareAnimalModifPage($id, AnimalBuilder $builder) {
 		$this->title = "Modifier l'animal";
 
 		$this->content = '<form action="'.$this->router->updateModifiedAnimal($id).'" method="POST">'."\n";
@@ -90,7 +90,7 @@ class View{
 		$this->title = "Suppression effectuée";
 		$this->content = "<p>L'animal a été correctement supprimée.</p>";
 	}
-
+*/
     public function prepareListPage($listeAnimaux): void{
         $this->title="Liste  des animaux";
         $this->content= "<ul>";
@@ -178,9 +178,6 @@ class View{
             <title><?php echo $this->title; ?></title>
             <meta charset="UTF-8" />
             <link rel="stylesheet" href="skin/screen.css" />
-            <style>
-        <?php echo $this->style; ?>
-            </style>
         </head>
         <body>
             <nav class="menu">

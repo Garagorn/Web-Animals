@@ -32,7 +32,7 @@ class Router{
 					if ($id === null) {
 						$view->prepareUnknownActionPage();
 					} else {
-						$ctl->colorPage($id);
+						$cotroller->animalPage($id);
 					}
 					break;
 				case "liste":
@@ -121,25 +121,25 @@ class Router{
 	
 	/* URL de la page d'édition d'une couleur existante */
 	public function animalModifPage($id) {
-		return "site.php?action=modifier";
+		return "site.php?action=modifier&id=$id";
 	}
 	
 	/* URL d'enregistrement des modifications sur un
 	 * animal (champ 'action' du formulaire) */
 	public function updateModifiedAnimal($id) {
-		return "site.php?action=sauverModifs";
+		return "site.php?action=sauverModifs&id=$id";	
 	}
 
 	/* URL de la page demandant la confirmation
 	 * de la suppression d'un animal */
 	public function animalDeletionPage($id) {
-		return "site.php?action=supprimer";
+		return "site.php?action=supprimer&id=$id";
 	}
 
 	/* URL de suppression effective d'un animal
 	 * (champ 'action' du formulaire) */
 	public function confirmAnimalDeletion($id) {
-		return "site.php?action=confirmerSuppression";
+		return "site.php?action=confirmerSuppression&id=$id";
 	}
 	
 	public function POSTredirect(string $url,string $feedback){

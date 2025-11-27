@@ -16,8 +16,6 @@ require_once("model/AnimalStorageMySQL.php");
 // Fonction de connection à la base de données
 function connecter(): ?PDO{
     
-
-
     // Options de connection
     $options = [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
@@ -30,8 +28,6 @@ function connecter(): ?PDO{
         $connection = new PDO($dsn, DB_USER, DB_PASS, $options);
         return $connection;
     } catch (PDOException $e) {
-        echo "connection à MySQL impossible : ", $e->getMessage();
-        //exit(); // Arrêter l'exécution du script en cas d'échec de connection
         return null;
     }
 }

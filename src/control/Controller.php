@@ -50,13 +50,5 @@ class Controller{
 		$id = $this->storage->create($animal);
 		$this->view->displayAnimalCreationSuccess($id);
 	}
-    
-    //deleteAnimal($id)
-    
-    //confirmAnimalDeletion($id)
-    
-    //modifyAimal($id)
-    
-    //saveAnimalModifications($id, array $data)
 }
 ?>

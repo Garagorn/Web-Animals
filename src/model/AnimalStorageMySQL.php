@@ -70,28 +70,3 @@ class AnimalStorageMySQL implements AnimalStorage{
         throw new Exception("not yet implemented");
     }
 }
-/*
-public function modifier(string $nouveau_nom,string $nouvelle_espece,int $nouvel_age): bool{
-    	$connection= connecter();
-    	if($connection==null){
-    		return false;
-    	}
-	else{
-        $requete = "UPDATE Animals  SET nom ='$nouveau_nom',espece ='$nouvelle_espece',album ='$nouvel_age' WHERE idA =$this->idA";
-        $connection->query($requete);
-	}
-	return true;
-    }
-    
-    public function supprimer(): bool{
-        $connection= connecter();
-    	if($connection==null){
-    		return false;
-    	}
-	else{
-        $requete="DELETE FROM Animals WHERE idA='$this->idA'";
-        $connection->query($requete);
-	}
-	return true;
-    }
-*/

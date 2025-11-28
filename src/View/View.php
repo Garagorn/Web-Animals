@@ -24,8 +24,6 @@ class View{
     public function prepareAnimalPage(Animal $animal):void{
         $this->title = "Page sur {$animal->getNom()}";
         $this->content = "<p>" . htmlspecialchars($animal->getNom()) ." est un " . htmlspecialchars($animal->getEspece())." de " . htmlspecialchars($animal->getAge()) ." ans.</p>";
-        //$this->content .= '<li><a href="'.$this->router->animalModifPage($id).'">Modifier</a></li>'."\n";
-		//$this->content .= '<li><a href="'.$this->router->animalDeletionPage($id).'">Supprimer</a></li>'."\n";
     }
 
 	public function prepareAnimalCreationPage(AnimalBuilder $build){
@@ -67,35 +65,12 @@ class View{
 		</form>
 		";
     }
-/*
-	public function prepareAnimalDeletionPage($id, Animal $a) {
-		$aname = self::htmlesc($a->getName());
 
-		$this->title = "Suppression de la couleur $aname";
-		$this->content = "<p>L'animal « {$aname} » va être supprimée.</p>\n";
-		$this->content .= '<form action="'.$this->router->confirmAnimalDeletion($id).'" method="POST">'."\n";
-		$this->content .= "<button>Confirmer</button>\n</form>\n";
-	}
-	
-	public function prepareAnimalModifPage($id, AnimalBuilder $builder) {
-		$this->title = "Modifier l'animal";
-
-		$this->content = '<form action="'.$this->router->updateModifiedAnimal($id).'" method="POST">'."\n";
-		$this->content .= self::getFormFields($builder);
-		$this->content .= '<button>Modifier</button>'."\n";
-		$this->content .= '</form>'."\n";
-	}
-
-	public function prepareAnimalDeletedPage() {
-		$this->title = "Suppression effectuée";
-		$this->content = "<p>L'animal a été correctement supprimée.</p>";
-	}
-*/
     public function prepareListPage($listeAnimaux): void{
         $this->title="Liste  des animaux";
         $this->content= "<ul>";
         foreach($listeAnimaux as $cle=>$animal){
-            $nom = htmlspecialchars(($animal->getNom()));
+            $nom = htmlspecialchars($animal->getNom());
             $url = $this->router->getAnimalURL($cle);
             $this->content .= "<li><a href='{$url}'>{$nom}</a></li>";
         }
@@ -193,7 +168,7 @@ class View{
             <main>
 		        <?php if (!empty($this->feedback)) : ?>
 					<div class="feedback">
-						<?php echo htmlspecialchars($this->feedback); ?>
+						<?php echo htmlesc($this->feedback); ?>
 					</div>
 				<?php endif; ?>
                 <h1><?php echo $this->title; ?></h1>

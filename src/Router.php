@@ -44,37 +44,7 @@ class Router{
 				case "sauverNouveau":
 					$controller->saveNewAnimal($_POST);
 					break;
-				
-				case "supprimer":
-				if ($id === null) {
-					$view->prepareUnknownActionPage();
-				} else {
-					$controller->deleteAnimal($id);
-				}
-				break;
-				case "confirmerSuppression":
-					if ($id === null) {
-						$view->prepareUnknownActionPage();
-					} else {
-						$controller->confirmAnimalDeletion($id);
-					}
-					break;
-
-				case "modifier":
-					if ($id === null) {
-						$view->prepareUnknownActionPage();
-					} else {
-						$controller->modifyAnimal($id);
-					}
-					break;
-
-				case "sauverModifs":
-					if ($id === null) {
-						$view->prepareUnknownActionPage();
-					} else {
-						$controller->saveAnimalModifications($id, $_POST);
-					}
-					break;
+							
 				case "accueil":
 					$controller->homePage();
 					break;
@@ -118,30 +88,7 @@ class Router{
 	public function getAnimalSaveURL(){
 		return "site.php?action=sauverNouveau";
 	}
-	
-	/* URL de la page d'édition d'une couleur existante */
-	public function animalModifPage($id) {
-		return "site.php?action=modifier&id=$id";
-	}
-	
-	/* URL d'enregistrement des modifications sur un
-	 * animal (champ 'action' du formulaire) */
-	public function updateModifiedAnimal($id) {
-		return "site.php?action=sauverModifs&id=$id";	
-	}
-
-	/* URL de la page demandant la confirmation
-	 * de la suppression d'un animal */
-	public function animalDeletionPage($id) {
-		return "site.php?action=supprimer&id=$id";
-	}
-
-	/* URL de suppression effective d'un animal
-	 * (champ 'action' du formulaire) */
-	public function confirmAnimalDeletion($id) {
-		return "site.php?action=confirmerSuppression&id=$id";
-	}
-	
+		
 	public function POSTredirect(string $url,string $feedback){
 		$_SESSION['feedback'] = $feedback;
 		header("Location: " . $url, true, 303);

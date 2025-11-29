@@ -1,4 +1,7 @@
 <?php 
+/**
+ * Classe pour modéliser un animal
+ */
 class Animal{
     private string $nom;
     private int $age;
@@ -7,26 +10,28 @@ class Animal{
     private ?string $imagePath;
 
     public function __construct(string $nom, string $espece, int $age, ?int $id = null, ?string $imagePath = null){
-    $this->nom = $nom;
-    $this->age = $age;
-    $this->espece = $espece;
+    //Echapper les données si attaque xss
+    $this->nom = htmlspecialchars($nom);
+    $this->age = htmlspecialchars($age);
+    $this->espece = htmlspecialchars($espece);
     $this->id = $id;
     $this->imagePath = $imagePath;
   }
 
-    public function getNom(){
+//Getter
+  public function getNom(){
 		return $this->nom;
 	}
 
-    public function getAge(){
+  public function getAge(){
 		return $this->age;
 	}
 
-    public function getEspece(){
+  public function getEspece(){
 		return $this->espece;
 	}
 
-    public function getImagePath(){
+  public function getImagePath(){
     return $this->imagePath;
   }
 

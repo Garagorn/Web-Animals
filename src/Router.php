@@ -2,7 +2,9 @@
 set_include_path("./src");
 require_once("View/View.php");
 require_once("control/Controller.php");
-
+/**
+ * Ancien Router sans pathInfo
+ */
 class Router{
 	
 	public function getAnimalURL(string $id):string{

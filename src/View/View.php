@@ -1,11 +1,17 @@
 <?php
-class View{
+require_once("ViewInterface.php");
+
+/**
+ * Affichage html 
+ * Gestion de l'affichage HTML en fonction de l'état du modèle
+ */
+class View implements ViewInterface{
     public $title;
     public $content;
 
     private $router;
     private array $menu;
-    private ?string $feedback;
+    private ?string $feedback; //String ou null si aucun feedback
 
     public function __construct(Router $routeur,?string $feedback=null){
         $this->router = $routeur;
@@ -16,21 +22,29 @@ class View{
 	/* Méthodes de génération des pages                                           */
 	/******************************************************************************/
 
+    /**
+     * Page d'accueil 
+     */
     public function prepareAccueilPage(): void{
 		$this->title = "Page d'accueil";
         $this->content = "<p>  Vous êtes sur la page d'accueil </p>";
 	}
 
+    /**
+     * Affichage de la page del'animal
+     * @param animal L'animal à afficher sur la page
+     */
     public function prepareAnimalPage(Animal $animal):void{
-        $this->title = "Page sur {$animal->getNom()}";
-        $this->content = "<p>" . htmlspecialchars($animal->getNom()) ." est un " . htmlspecialchars($animal->getEspece())." de " . htmlspecialchars($animal->getAge()) ." ans.</p>";
+        //Echapper les informations
+        $this->title = "Page sur " .self::htmlesc($animal->getNom());
+        $this->content = "<p>" . self::htmlesc($animal->getNom()) ." est un " . self::htmlesc($animal->getEspece())." de " . self::htmlesc($animal->getAge()) ." ans.</p>";
         $imageName = $animal->getImagePath();
         $imageHtml = '';
         if ($imageName !== null && $imageName !== '') {
             $serverPath = 'image/' . $imageName;
-            $webPath = './image/' . htmlspecialchars($imageName);
+            $webPath = './image/' . self::htmlesc($imageName);
             if (file_exists($serverPath)){
-                $imageHtml = "<img src='{$webPath}' alt='Image de ". htmlspecialchars($animal->getNom()) . "'>";
+                $imageHtml = "<img src='{$webPath}' alt='Image de ". self::htmlesc($animal->getNom()) . "'>";
             }
             else{
                 $imageHtml = "<p><strong> IMAGE INTROUVABLE </strong></p>";
@@ -39,21 +53,25 @@ class View{
         $this->content .= $imageHtml;
     }
 
-	public function prepareAnimalCreationPage(AnimalBuilder $build){
+	public function prepareAnimalCreationPage(AnimalBuilder $build): void{
 		$this->title ="Créer un nouvel animal";
 		$saveURL = htmlspecialchars($this->router->getAnimalSaveURL());
 
+        //Recuperer les informations enregistrees
 		$data = $build->getData();
     	$error = $build->getError();
 
-        $nom = htmlspecialchars($data[AnimalBuilder::NAME_REF]??'');
-        $espece = htmlspecialchars($data[AnimalBuilder::SPECIES_REF]??'');
-        $age = htmlspecialchars($data[AnimalBuilder::AGE_REF]??'');
+        //Echapper les informations
+        $nom = self::htmlesc($data[AnimalBuilder::NAME_REF]??'');
+        $espece = self::htmlesc($data[AnimalBuilder::SPECIES_REF]??'');
+        $age = self::htmlesc($data[AnimalBuilder::AGE_REF]??'');
 
         $errorA='';
         if($error != null){
-            $errorA=$error;
+            //Echapper les erreurs
+            $errorA=self::htmlesc($error);
         }
+        //Renvoyer le formulaire avec les erreurs et les champs deja remplis
 		$this->content = "
         {$errorA}
 		<form method='POST' action='$saveURL' enctype='multipart/form-data'>
@@ -83,11 +101,17 @@ class View{
 		";
     }
 
+    /**
+     * Afficher la liste des animaux 
+     * @param listeAnimaux le tableau a afficher sur la page
+     */
     public function prepareListPage($listeAnimaux): void{
         $this->title="Liste  des animaux";
         $this->content= "<ul>";
+        //$this->content= "<ul class=\"gallery\">";
         foreach($listeAnimaux as $cle=>$animal){
-            $nom = htmlspecialchars($animal->getNom());
+            //Echapper les informations
+            $nom = self::htmlesc($animal->getNom());
             $url = $this->router->getAnimalURL($cle);
             $this->content .= "<li><a href='{$url}'>{$nom}</a></li>";
         }
@@ -108,7 +132,7 @@ class View{
         $this->content = "<p> Contenu de la page </p>";
     }
 
-    public function prepareDebugPage($variable) {
+    public function prepareDebugPage($variable): void{
         $this->title = 'Debug';
         $this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
     }
@@ -118,7 +142,7 @@ class View{
         $this->content = "<p>  Animal inconnu est d'une espèce inconnue </p>";
 	}
     
-    public function prepareUnknownActionPage() {
+    public function prepareUnknownActionPage(): void{
 		$this->title = "Erreur";
 		$this->content = "La page demandée n'existe pas.";
 	}
@@ -169,7 +193,8 @@ class View{
         <head>
             <title><?php echo $this->title; ?></title>
             <meta charset="UTF-8" />
-            <link rel="stylesheet" href="skin/screen.css" />
+        	<base href="<?php echo dirname($_SERVER['SCRIPT_NAME']) . '/'; ?>" />
+    		<link rel="stylesheet" href="skin/screen.css" />
         </head>
         <body>
             <nav class="menu">
@@ -185,7 +210,7 @@ class View{
             <main>
 		        <?php if (!empty($this->feedback)) : ?>
 					<div class="feedback">
-						<?php echo htmlesc($this->feedback); ?>
+						<?php echo self::htmlesc($this->feedback); ?>
 					</div>
 				<?php endif; ?>
                 <h1><?php echo $this->title; ?></h1>
@@ -195,7 +220,7 @@ class View{
             </main>
         </body>
         </html>
-        <?php /* fin de l'affichage de la page et fin de la mÃ©thode render() */
+        <?php /* fin de l'affichage de la page et fin de la méthode render() */
 	}
 
 }

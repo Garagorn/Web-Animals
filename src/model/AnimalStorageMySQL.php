@@ -31,7 +31,8 @@ class AnimalStorageMySQL implements AnimalStorage{
 		    $a['nom'],
 		    $a['espece'],
 		    $a['age'],
-		    $a['idA']
+		    $a['idA'],
+			$a['image'] ?? null
 		);
 	}
     
@@ -52,12 +53,13 @@ class AnimalStorageMySQL implements AnimalStorage{
 	}
 
     public function create(Animal $a): string {
-		$requete = "INSERT INTO Animals (nom, espece, age) VALUES (:nom, :espece, :age)";
-		$stmt = $connection->prepare($requete);
+		$requete = "INSERT INTO Animals (nom, espece, age, image) VALUES (:nom, :espece, :age, :image)";
+		$stmt = $this->pdo->prepare($requete);
 		$stmt->execute([
 		    ':nom'    => $a->getNom(),
 		    ':espece' => $a->getEspece(),
-		    ':age'    => $a->getAge()
+		    ':age'    => $a->getAge(),
+			':image'  => $a->getImagePath(),
 		]);
 		return $this->pdo->lastInsertId();
 	}

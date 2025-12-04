@@ -32,7 +32,7 @@ class Router{
 					if ($id === null) {
 						$view->prepareUnknownActionPage();
 					} else {
-						$cotroller->animalPage($id);
+						$controller->animalPage($id);
 					}
 					break;
 				case "liste":

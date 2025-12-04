@@ -1,5 +1,5 @@
 <?php
-require_once('/users/tellier212/private/mysql_config.php');
+require_once('/users/thomas237/private/mysql_config.php');
 /*
  * On indique que les chemins des fichiers qu'on inclut
  * seront relatifs au répertoire src.
@@ -15,20 +15,17 @@ require_once("model/AnimalStorageMySQL.php");
 
 // Fonction de connection à la base de données
 function connecter(): ?PDO{
-    
-    // Options de connection
     $options = [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ];
 
-    // connection à la base de données
     try {
-        $dsn = DB_HOST . DB_NAME;
+        $dsn = DB_HOST . ";" . DB_NAME . ";charset=utf8";
         $connection = new PDO($dsn, DB_USER, DB_PASS, $options);
         return $connection;
     } catch (PDOException $e) {
-        return null;
+        die("Erreur de connexion : " . $e->getMessage());
     }
 }
 

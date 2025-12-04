@@ -34,21 +34,26 @@ class Controller{
     }
 
     public function createNewAnimal(): void{
-	$build = new AnimalBuilder([]);
+	    $build = new AnimalBuilder([]);
         $this->view->prepareAnimalCreationPage($build);
     }
 
 	
 	public function saveNewAnimal(array $data){
-		$build = new AnimalBuilder($data);
+    $imagePath = null;
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $imagePath = basename($_FILES['image']['name']);
+    }
+    $data[AnimalBuilder::IMAGE_REF] = $imagePath;
+    $build = new AnimalBuilder($data);
 
-		if (!$build->isValid()) {
-        	$this->view->prepareAnimalCreationPage($build);
+    if (!$build->isValid()) {
+        $this->view->prepareAnimalCreationPage($build);
         return null;
     }
-		$animal = $build->createAnimal();
-		$id = $this->storage->create($animal);
-		$this->view->displayAnimalCreationSuccess($id);
-	}
+    $animal = $build->createAnimal();
+    $id = $this->storage->create($animal);
+    $this->view->displayAnimalCreationSuccess($id);
+    }
 }
 ?>

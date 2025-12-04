@@ -24,6 +24,11 @@ class View{
     public function prepareAnimalPage(Animal $animal):void{
         $this->title = "Page sur {$animal->getNom()}";
         $this->content = "<p>" . htmlspecialchars($animal->getNom()) ." est un " . htmlspecialchars($animal->getEspece())." de " . htmlspecialchars($animal->getAge()) ." ans.</p>";
+        $imagePath = $animal->getImagePath();
+        var_dump($animal->getImagePath());
+        if ($imagePath !== null && $imagePath !== '') {
+            $this->content .= "<div><img src='image/". htmlspecialchars($imagePath) ."' alt='Image de {$animal->getNom()} :' style='max-width:300px;'></div>";
+        }
     }
 
 	public function prepareAnimalCreationPage(AnimalBuilder $build){
@@ -43,7 +48,7 @@ class View{
         }
 		$this->content = "
         {$errorA}
-		<form method='POST' action='$saveURL'>
+		<form method='POST' action='$saveURL' enctype='multipart/form-data'>
 			<div>
 				<label for='nom'>Nom :</label>
 				<input type='text' id='nom' name='".AnimalBuilder::NAME_REF."' value='{$nom}' />
@@ -59,6 +64,10 @@ class View{
 				<input type='number' id='age' name='".AnimalBuilder::AGE_REF."' value='{$age}' />
 			</div>
 			
+            <div>
+                <label for='image'>Image :</label>
+                <input type='file' id='image' name='image' accept='image/*' />
+            </div>
 			<div>
 				<button type='submit'>Créer l'animal</button>
 			</div>

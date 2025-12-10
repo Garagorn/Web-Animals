@@ -111,12 +111,17 @@ class View implements ViewInterface{
     public function prepareListPage($listeAnimaux): void{
         $this->title="Liste  des animaux";
 <<<<<<< HEAD
+<<<<<<< HEAD
         $this->content= "<ul>";
         //$this->content= "<ul class=\"gallery\">";
 =======
         //$this->content= "<ul>";
         $this->content= "<ul class=\"gallery\">";
 >>>>>>> f4813ed (Ajout de commentaire)
+=======
+        $this->content= "<ul>";
+        //$this->content= "<ul class=\"gallery\">";
+>>>>>>> 9ac1010 (Retour au style de liste basique + page erreur)
         foreach($listeAnimaux as $cle=>$animal){
             //Echapper les informations
             $nom = self::htmlesc($animal->getNom());

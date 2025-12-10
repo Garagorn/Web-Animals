@@ -12,7 +12,7 @@ class Animal{
     $this->espece = $espece;
     $this->id = $id;
     $this->imagePath = $imagePath;
-}
+  }
 
     public function getNom(){
 		return $this->nom;

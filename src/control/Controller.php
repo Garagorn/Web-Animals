@@ -41,8 +41,38 @@ class Controller{
 	
 	public function saveNewAnimal(array $data){
     $imagePath = null;
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $imagePath = basename($_FILES['image']['name']);
+    if (!empty($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        try {
+            if (!isset($_FILES['image']['error']) || is_array($_FILES['image']['error'])) {
+                throw new RuntimeException('Paramètres invalides.');
+            }
+            if ($_FILES['image']['size'] > 2 * 1024 * 1024) {
+                throw new RuntimeException('Fichier trop volumineux (max 2Mo).');
+            }
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->file($_FILES['image']['tmp_name']);
+            $extensions = [
+                'jpg' => 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'webp' => 'image/webp'
+            ];
+            if (false === $ext = array_search($mime, $extensions, true)) {
+                throw new RuntimeException('Format de fichier non supporté (jpg, png, gif, webp uniquement).');
+            }
+            if (!is_dir('./image')) {
+                mkdir('./image', 0755, true);
+            }
+            $nomUnique = sprintf('%s.%s', sha1_file($_FILES['image']['tmp_name']) . uniqid(), $ext);
+            $cheminComplet = './image/' . $nomUnique;
+            if (!move_uploaded_file($_FILES['image']['tmp_name'], $cheminComplet)) {
+                throw new RuntimeException('Impossible de sauvegarder le fichier.');
+            }
+            $imagePath = $nomUnique;              
+        } 
+        catch (RuntimeException $e) {
+            $data['error_image'] = $e->getMessage();
+        }
     }
     $data[AnimalBuilder::IMAGE_REF] = $imagePath;
     $build = new AnimalBuilder($data);

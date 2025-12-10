@@ -18,7 +18,7 @@ class AnimalStorageMySQL implements AnimalStorage{
     }
 
     public function read(string $id): ?Animal {
-		$requete = "SELECT idA, nom, espece, age FROM Animals WHERE idA = :id";
+		$requete = "SELECT idA, nom, espece, age, image FROM Animals WHERE idA = :id";
 		$stmt = $this->pdo->prepare($requete);
 		$stmt->execute([":id" => $id]);
 		$a = $stmt->fetch(PDO::FETCH_ASSOC);

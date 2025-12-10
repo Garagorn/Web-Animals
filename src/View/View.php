@@ -24,11 +24,19 @@ class View{
     public function prepareAnimalPage(Animal $animal):void{
         $this->title = "Page sur {$animal->getNom()}";
         $this->content = "<p>" . htmlspecialchars($animal->getNom()) ." est un " . htmlspecialchars($animal->getEspece())." de " . htmlspecialchars($animal->getAge()) ." ans.</p>";
-        $imagePath = $animal->getImagePath();
-        var_dump($animal->getImagePath());
-        if ($imagePath !== null && $imagePath !== '') {
-            $this->content .= "<div><img src='image/". htmlspecialchars($imagePath) ."' alt='Image de {$animal->getNom()} :' style='max-width:300px;'></div>";
+        $imageName = $animal->getImagePath();
+        $imageHtml = '';
+        if ($imageName !== null && $imageName !== '') {
+            $serverPath = 'image/' . $imageName;
+            $webPath = './image/' . htmlspecialchars($imageName);
+            if (file_exists($serverPath)){
+                $imageHtml = "<img src='{$webPath}' alt='Image de ". htmlspecialchars($animal->getNom()) . "'>";
+            }
+            else{
+                $imageHtml = "<p><strong> IMAGE INTROUVABLE </strong></p>";
+            }
         }
+        $this->content .= $imageHtml;
     }
 
 	public function prepareAnimalCreationPage(AnimalBuilder $build){

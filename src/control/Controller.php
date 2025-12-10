@@ -66,6 +66,7 @@ class Controller{
      * @param data Les informations de cet animal
      */
 	public function saveNewAnimal(array $data){
+<<<<<<< HEAD
         $imagePath = null;
         if (!empty($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             try {
@@ -111,5 +112,21 @@ class Controller{
         $id = $this->storage->create($animal);
         $this->view->displayAnimalCreationSuccess($id);
     }
+=======
+        //Creer le build avec les informations
+		$build = new AnimalBuilder($data);
+
+        //Buiilder invalide
+		if(!$build->isValid()){
+            //Il faut re-remplir le formulaire mais avec les données et feedback
+        	$this->view->prepareAnimalCreationPage($build);
+            return null;
+        }
+        //Build valide
+		$animal = $build->createAnimal();
+		$id = $this->storage->create($animal);
+		$this->view->displayAnimalCreationSuccess($id);
+	}
+>>>>>>> f4813ed (Ajout de commentaire)
 }
 ?>

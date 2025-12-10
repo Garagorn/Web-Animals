@@ -49,7 +49,11 @@ class ViewAPI implements ViewInterface {
             ];
         }
         //Transformer le php en json
+<<<<<<< HEAD
         echo json_encode($this->data,JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+=======
+        echo json_encode($this->data);
+>>>>>>> f4813ed (Ajout de commentaire)
     }
     
 //Méthodes inutilisées

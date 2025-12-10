@@ -2,7 +2,10 @@
 require_once("ViewInterface.php");
 
 /**
+<<<<<<< HEAD
  * Affichage html 
+=======
+>>>>>>> f4813ed (Ajout de commentaire)
  * Gestion de l'affichage HTML en fonction de l'état du modèle
  */
 class View implements ViewInterface{
@@ -107,8 +110,13 @@ class View implements ViewInterface{
      */
     public function prepareListPage($listeAnimaux): void{
         $this->title="Liste  des animaux";
+<<<<<<< HEAD
         $this->content= "<ul>";
         //$this->content= "<ul class=\"gallery\">";
+=======
+        //$this->content= "<ul>";
+        $this->content= "<ul class=\"gallery\">";
+>>>>>>> f4813ed (Ajout de commentaire)
         foreach($listeAnimaux as $cle=>$animal){
             //Echapper les informations
             $nom = self::htmlesc($animal->getNom());

@@ -3,6 +3,7 @@
 require_once("model/Animal.php");
 
 class AnimalBuilder{
+<<<<<<< HEAD
     //Acceder au constante
     public const NAME_REF = "NOM";
     public const SPECIES_REF = "ESPECE";
@@ -37,6 +38,42 @@ class AnimalBuilder{
     }
 
     //Vérification de la validité des informations sinon feedback les erreurs
+=======
+	//Acceder au constante
+	public const NAME_REF = "NOM";
+	public const SPECIES_REF = "ESPECE";
+	public const AGE_REF = "AGE";
+
+	//Stocker les erreurs et données
+	protected $error;
+	protected $data;
+
+	public function __construct($data=null) {
+		$this->data = $data;
+		$this->error = array();
+	}
+	
+	public function getData(){
+		return $this->data;
+	}
+	
+	public function getError(){
+		return $this->error;
+	}
+	
+	//Créer un animal à partir de data
+	public function createAnimal() {
+		if (!$this->isValid()){
+			return null;
+		}
+		$nom = trim($this->data[SELF::NAME_REF]);
+		$espece = trim($this->data[SELF::SPECIES_REF]);
+		$age = $this->data[SELF::AGE_REF];
+		return new Animal($nom,$espece,$age);
+	}
+	
+	//Vérification de la validité des informations sinon feedback les erreurs
+>>>>>>> f4813ed (Ajout de commentaire)
     public function isValid() {
         $nom = trim($this->data[SELF::NAME_REF] ?? '');
         $espece = trim($this->data[SELF::SPECIES_REF] ?? '');

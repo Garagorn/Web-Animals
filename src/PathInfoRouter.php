@@ -58,8 +58,8 @@ class PathInfoRouter extends Router {
                 $controller->saveNewAnimal($_POST);
                 break;                
             default:
-                $view->prepareUnknownActionPage();
-				break;
+                $controller->showInformation($action);
+                break;
         }        
         $view->render();
     }

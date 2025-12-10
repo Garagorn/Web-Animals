@@ -2,10 +2,7 @@
 require_once("ViewInterface.php");
 
 /**
-<<<<<<< HEAD
  * Affichage html 
-=======
->>>>>>> f4813ed (Ajout de commentaire)
  * Gestion de l'affichage HTML en fonction de l'état du modèle
  */
 class View implements ViewInterface{

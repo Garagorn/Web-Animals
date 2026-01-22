@@ -1,5 +1,6 @@
 <?php
-require_once('/users/tellier212/private/mysql_config.php');
+require_once(__DIR__ . '/config/mysql_config.php');
+
 /*
  * On indique que les chemins des fichiers qu'on inclut
  * seront relatifs au répertoire src.
@@ -24,7 +25,7 @@ function connecter(): ?PDO{
 
     // connection à la base de données
     try {
-        $dsn = DB_HOST . DB_NAME;
+        $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
         $connection = new PDO($dsn, DB_USER, DB_PASS, $options);
         return $connection;
     } catch (PDOException $e) {
@@ -34,7 +35,6 @@ function connecter(): ?PDO{
 }
 
 $pdo = connecter();
-//Conection à la base et ajout de celle-ci dans l'instance
 $storage = new AnimalStorageMySQL($pdo);
 /*
  * Cette page est simplement le point d'arrivée de l'internaute
@@ -43,6 +43,6 @@ $storage = new AnimalStorageMySQL($pdo);
  */
 
 $router = new PathInfoRouter();
-$router->main($storage); //Envoi du gestionnaire dans le router
+$router->main($storage);
 
 ?>

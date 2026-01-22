@@ -40,7 +40,7 @@ if ($pdo === null) {
     exit;
 }
 
-$storage = new AnimalStorageMySQL($pdo); //Envoi de la bdd dans  l'instance de gestionaire d'animaux
+$storage = new AnimalStorageMySQL($pdo);
 $router = new RouterAPI();
-$router->main($storage); //Envoi du gestionnaire dans le router
+$router->main($storage);
 ?>

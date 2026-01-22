@@ -25,13 +25,8 @@ class AnimalStorageMySQL implements AnimalStorage{
 	 * @return Animal l'objet animal construit à partir du retour de la requete
 	 */
     public function read(string $id): ?Animal {
-<<<<<<< HEAD
 		//Requete
 		$requete = "SELECT idA, nom, espece, age, image FROM Animals WHERE idA = :id";
-=======
-		//Requete 
-		$requete = "SELECT idA, nom, espece, age FROM Animals WHERE idA = :id";
->>>>>>> f4813ed (Ajout de commentaire)
 		//Preparer la requete
 		$stmt = $this->pdo->prepare($requete);
 		//Execution de la requete

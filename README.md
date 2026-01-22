@@ -51,6 +51,26 @@ Le projet repose sur une base de données relationnelle permettant :
 
 ## Captures d’écran
 
+## Captures d’écran
+
+## Accueil
+![Accueil](screenshots/Accueil.png)
+### Liste
+![Liste des animaux](screenshots/Liste.png)
+![Détails d'un animal](screenshots/DetailsAnimal.png)
+### Ajout d'un animal
+![Ajout](screenshots/AjoutAnimal.png)
+### API
+API sans collection : 
+![API sans collection](screenshots/API.png)
+API avec la collection animaux : 
+![Collection Animaux](screenshots/API_Collections.png)
+API avec la collection animaux et l'id de l'animal: 
+![Details API](screenshots/API_Details.png)
+Partie d'url pour l'API :
+![URL](screenshots/Partie_URL.png)
+
+
 Auteurs : 
 THOMAS Matthieu
 TELLIER  Basile

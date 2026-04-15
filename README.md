@@ -72,5 +72,5 @@ Partie d'url pour l'API :
 
 
 Auteurs : 
-THOMAS Matthieu
-TELLIER  Basile
+- Matthieu **THOMAS** (https://github.com/Matthieu-Thomas)
+- Basile **TELLIER**
